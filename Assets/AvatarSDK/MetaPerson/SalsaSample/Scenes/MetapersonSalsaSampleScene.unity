@@ -350,6 +350,18 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.size
       value: 66
       objectReference: {fileID: 0}
+    - target: {fileID: 2480636403939241134, guid: eb2158301e17efb4d856d60e58eeffbe, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480636403939241134, guid: eb2158301e17efb4d856d60e58eeffbe, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2480636403939241134, guid: eb2158301e17efb4d856d60e58eeffbe, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: eb2158301e17efb4d856d60e58eeffbe, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1389,10 +1401,10 @@ MonoBehaviour:
         inspIsSetEnd: 0
         umaUepProxy: {fileID: 0}
         uepAmount: 0
-        smr: {fileID: 0}
+        smr: {fileID: 2087307552}
         blendIndex: 0
         minShape: 0
-        maxShape: 1
+        maxShape: 0.8
         eyeGizmo: {fileID: 0}
         eventSender: {fileID: 0}
         animator: {fileID: 0}
@@ -1430,10 +1442,10 @@ MonoBehaviour:
         inspIsSetEnd: 0
         umaUepProxy: {fileID: 0}
         uepAmount: 0
-        smr: {fileID: 0}
-        blendIndex: 0
+        smr: {fileID: 2087307552}
+        blendIndex: 1
         minShape: 0
-        maxShape: 1
+        maxShape: 0.8
         eyeGizmo: {fileID: 0}
         eventSender: {fileID: 0}
         animator: {fileID: 0}
@@ -1510,10 +1522,10 @@ MonoBehaviour:
         inspIsSetEnd: 0
         umaUepProxy: {fileID: 0}
         uepAmount: 0
-        smr: {fileID: 0}
-        blendIndex: 0
+        smr: {fileID: 2087307552}
+        blendIndex: 2
         minShape: 0
-        maxShape: 1
+        maxShape: 0.8
         eyeGizmo: {fileID: 0}
         eventSender: {fileID: 0}
         animator: {fileID: 0}
@@ -1531,7 +1543,7 @@ MonoBehaviour:
         textures: []
         materialRenderer: {fileID: 0}
         materials: []
-      inspFoldout: 0
+      inspFoldout: 1
       previewDisplayMode: 0
       collectionExpand: 0
     isRandomEmote: 1
@@ -1612,10 +1624,10 @@ MonoBehaviour:
         inspIsSetEnd: 0
         umaUepProxy: {fileID: 0}
         uepAmount: 0
-        smr: {fileID: 0}
-        blendIndex: 0
+        smr: {fileID: 2087307552}
+        blendIndex: 20
         minShape: 0
-        maxShape: 1
+        maxShape: 0.8
         eyeGizmo: {fileID: 0}
         eventSender: {fileID: 0}
         animator: {fileID: 0}
@@ -1653,10 +1665,10 @@ MonoBehaviour:
         inspIsSetEnd: 0
         umaUepProxy: {fileID: 0}
         uepAmount: 0
-        smr: {fileID: 0}
-        blendIndex: 0
+        smr: {fileID: 2087307552}
+        blendIndex: 21
         minShape: 0
-        maxShape: 1
+        maxShape: 0.8
         eyeGizmo: {fileID: 0}
         eventSender: {fileID: 0}
         animator: {fileID: 0}
@@ -1676,7 +1688,7 @@ MonoBehaviour:
         materials: []
       inspFoldout: 1
       previewDisplayMode: 0
-      collectionExpand: 0
+      collectionExpand: 1
     isRandomEmote: 1
     isLipsyncEmphasisEmote: 1
     isRepeaterEmote: 0
@@ -1699,13 +1711,13 @@ MonoBehaviour:
   useRandomHoldDuration: 0
   randomHoldDurationMin: 0.1
   randomHoldDurationMax: 0.5
-  configReady: 0
+  configReady: 1
   warnOnNullRefs: 1
   inspSalsaLinked: 1
   inspStateFoldoutProcessing: 1
   inspStateFoldoutSettings: 1
   inspStateFoldoutEmotes: 1
-  inspCollectionDisplayMode: 1
+  inspCollectionDisplayMode: 0
 --- !u!114 &1305247279
 MonoBehaviour:
   m_ObjectHideFlags: 0
