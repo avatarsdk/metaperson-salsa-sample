@@ -70,7 +70,6 @@ public class SalsaSampleSceneHandler : MonoBehaviour
 
         foreach(var emote in salsa.emoter.emotes)
         {
-            //foreach(var controllerVar in emote.expData.controllerVars)
             for(int i = 0; i < emote.expData.controllerVars.Count; i++)
             {
                 var controllerVar = emote.expData.controllerVars[i];
