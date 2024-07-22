@@ -10,6 +10,7 @@
 
 using AvatarSDK.MetaPerson.Loader;
 using CrazyMinnow.SALSA;
+using CrazyMinnow.SALSA.OneClicks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,6 +39,32 @@ public class SalsaSampleSceneHandler : MonoBehaviour
     {
         progressText.text = string.Format("Downloading avatar: {0}%", (int)(progress * 100));
     }
+    void ReleaseSalsa() {
+        salsa.TurnOffAll();
+        salsa.enabled = false;
+        salsa.emoter.enabled = false;
+
+        salsa.queueProcessor = null;
+        salsa.audioSrc = null;
+        salsa.visemes.Clear();
+        salsa.emoter.emotes.Clear();        
+        salsa.emoter.configReady = false;
+        salsa.configReady = false;
+        
+        var silenceAnalyzer = dstObject.GetComponent<SalsaAdvancedDynamicsSilenceAnalyzer>();
+        silenceAnalyzer.enabled = false;
+
+        DestroyImmediate(silenceAnalyzer);
+        DestroyImmediate(salsa);
+        DestroyImmediate(salsa.emoter);
+    }
+    void ReleaseSalsaEyes() {
+        var eyes = dstObject.GetComponent<Eyes>();
+        eyes.enabled = false;
+        eyes.eyes.Clear();
+
+        DestroyImmediate(eyes);
+    }
     async void OnButtonClick()
     {
         button.gameObject.SetActive(false);
@@ -46,44 +73,22 @@ public class SalsaSampleSceneHandler : MonoBehaviour
         await loader.LoadModelAsync(avatarUri, ProgressReport);        
         progressText.gameObject.SetActive(false);        
         SkinnedMeshRenderer[] meshRenderes = loader.avatarObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        ReleaseSalsa();
+        ReleaseSalsaEyes();        
+
         MetaPersonUtils.ReplaceAvatar(loader.avatarObject, existingAvatar);
-        Dictionary<string, SkinnedMeshRenderer> meshes = meshRenderes.ToDictionary(m => m.name, m => m);
-        Dictionary<string, string> blendshapes = new Dictionary<string, string>() {
-            {"saySmall","DD" },
-            {"sayMedium","oh" },
-            {"sayLarge","aa" },
-        };
 
-        foreach (var viseme in salsa.visemes)
-        {
-            string blenshapeName = blendshapes[viseme.expData.name];
-            if (viseme.expData.controllerVars.Count == 2)
-            {
-                viseme.expData.controllerVars[0].maxShape = 0.01f;
-                viseme.expData.controllerVars[0].smr = meshes["AvatarHead"];
-                viseme.expData.controllerVars[0].blendIndex = meshes["AvatarHead"].sharedMesh.GetBlendShapeIndex(blenshapeName);
-                viseme.expData.controllerVars[1].maxShape = 0.01f;
-                viseme.expData.controllerVars[1].smr = meshes["AvatarTeethLower"];
-                viseme.expData.controllerVars[1].blendIndex = meshes["AvatarTeethLower"].sharedMesh.GetBlendShapeIndex(blenshapeName);
-            }
-        }
-
-        foreach(var emote in salsa.emoter.emotes)
-        {
-            for(int i = 0; i < emote.expData.controllerVars.Count; i++)
-            {
-                var controllerVar = emote.expData.controllerVars[i];
-                controllerVar.smr = meshes["AvatarHead"];
-                controllerVar.maxShape = 0.008f;
-                controllerVar.blendIndex = meshes["AvatarHead"].sharedMesh.GetBlendShapeIndex(emote.expData.components[i].name);
-            }
-        }
+        OneClickAvatarSdkEyes.BlendshapeScale = OneClickAvatarSdk.BlendshapeScale = 1.0f;
+        OneClickAvatarSdk.Setup(dstObject);
         
-        salsa.emoter.UpdateEmoteLists();
-        salsa.emoter.UpdateExpressionControllers();
-        salsa.emoter.configReady = true;
-        salsa.emoter.Initialize();
+        OneClickAvatarSdkEyes.Setup(dstObject);
+        var eyes = dstObject.GetComponent<Eyes>();
+        eyes.queueProcessor = dstObject.GetComponent<QueueProcessor>();
 
+        salsa = dstObject.GetComponent<Salsa>();
+        salsa.queueProcessor = dstObject.GetComponent<QueueProcessor>();
+        salsa.audioSrc = audioSource;
         salsa.DistributeTriggers(LerpEasings.EasingType.SquaredIn);
         salsa.AdjustAnalysisSettings();
         salsa.UpdateExpressionControllers();
