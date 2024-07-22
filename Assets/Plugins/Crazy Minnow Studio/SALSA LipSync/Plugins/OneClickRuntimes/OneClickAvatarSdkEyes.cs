@@ -9,7 +9,7 @@ namespace CrazyMinnow.SALSA.OneClicks
         public static void Setup(GameObject go)
         {
             string head = "^head$";
-            string[] body = new string[] { ".+(head|avatar)$" };
+            string[] body = new string[] { "^.+(Head)$" };
             string[] eyeL = new string[] { "LeftEye$" };
             string[] eyeR = new string[] { "RightEye$" };
             string[] blinkL = new string[] { "eyeBlinkLeft" };
