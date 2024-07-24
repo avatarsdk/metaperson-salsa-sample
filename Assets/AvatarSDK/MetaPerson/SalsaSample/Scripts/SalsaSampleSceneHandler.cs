@@ -84,10 +84,11 @@ public class SalsaSampleSceneHandler : MonoBehaviour
         
         OneClickAvatarSdkEyes.Setup(dstObject);
         var eyes = dstObject.GetComponent<Eyes>();
-        eyes.queueProcessor = dstObject.GetComponent<QueueProcessor>();
-
+        eyes.queueProcessor = dstObject.GetComponent<QueueProcessor>();        
         salsa = dstObject.GetComponent<Salsa>();
+        salsa.emoter.queueProcessor = dstObject.GetComponent<QueueProcessor>();
         salsa.queueProcessor = dstObject.GetComponent<QueueProcessor>();
+
         salsa.audioSrc = audioSource;
         salsa.DistributeTriggers(LerpEasings.EasingType.SquaredIn);
         salsa.AdjustAnalysisSettings();
