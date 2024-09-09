@@ -51,10 +51,24 @@ after that we replace the avatar on the scene:
 MetaPersonUtils.ReplaceAvatar(loader.avatarObject, existingAvatar);
 ```
 
-and then configure everything for a new model with the help of the OneClick classes:
+and then configure everything for a new model with the help of the AvatarSdkSalsaTools class:
 ```cs
-OneClickAvatarSdk.Setup(dstObject);        
-OneClickAvatarSdkEyes.Setup(dstObject);
+AvatarSdkSalsaTools.Configure(existingAvatar, dstObject, null);
+```
+Here we pass 2 game objects references: the first is avatar game object itself, the second is the parent object to which the salsa will be set. Third parameter is reference to audio clip, which is set to null here because we already have the audio playing. The 'Configure' method will call the corresponding One click methods to configure lipsync, eyes and emoter:
+
+```cs
+ OneClickAvatarSdk.Setup(parentObj);
+ OneClickAvatarSdkEyes.Setup(parentObj);
+```
+and make sure that the QueueProcessor is created for object:
+
+```cs
+ if (parentObj.GetComponent<QueueProcessor>() == null)
+ {
+     // add QueueProcessor
+     OneClickBase.AddQueueProcessor(parentObj);
+ }
 ```
 
 Please see the official API documentation for [ExpressionComponents](https://crazyminnowstudio.com/docs/salsa-lip-sync/modules/further-reading/expression-components/#api-examples-for-expressioncomponents) and [EmoteR](https://crazyminnowstudio.com/docs/salsa-lip-sync/modules/emoter/api/) for more details.
