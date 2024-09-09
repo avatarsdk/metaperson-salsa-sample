@@ -65,6 +65,8 @@ public class SalsaSampleSceneHandler : MonoBehaviour
 
         DestroyImmediate(eyes);
     }
+
+  
     async void OnButtonClick()
     {
         button.gameObject.SetActive(false);
@@ -72,30 +74,14 @@ public class SalsaSampleSceneHandler : MonoBehaviour
 
         await loader.LoadModelAsync(avatarUri, ProgressReport);        
         progressText.gameObject.SetActive(false);        
-        SkinnedMeshRenderer[] meshRenderes = loader.avatarObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-
+        
         ReleaseSalsa();
         ReleaseSalsaEyes();        
 
         MetaPersonUtils.ReplaceAvatar(loader.avatarObject, existingAvatar);
-
-        OneClickAvatarSdkEyes.BlendshapeScale = OneClickAvatarSdk.BlendshapeScale = 1.0f;
-        OneClickAvatarSdk.Setup(dstObject);
-        
-        OneClickAvatarSdkEyes.Setup(dstObject);
-        var eyes = dstObject.GetComponent<Eyes>();
-        eyes.queueProcessor = dstObject.GetComponent<QueueProcessor>();        
+        AvatarSdkSalsaTools.Configure(existingAvatar, dstObject, null);
         salsa = dstObject.GetComponent<Salsa>();
-        salsa.emoter.queueProcessor = dstObject.GetComponent<QueueProcessor>();
-        salsa.queueProcessor = dstObject.GetComponent<QueueProcessor>();
 
-        salsa.audioSrc = audioSource;
-        salsa.DistributeTriggers(LerpEasings.EasingType.SquaredIn);
-        salsa.AdjustAnalysisSettings();
-        salsa.UpdateExpressionControllers();
-        salsa.queueProcessor.ResetQueues();
-        salsa.configReady = true;
-        salsa.Initialize();
     }
     // Update is called once per frame
     void Update()

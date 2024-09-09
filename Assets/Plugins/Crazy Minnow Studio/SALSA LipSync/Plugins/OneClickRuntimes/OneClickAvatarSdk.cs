@@ -5,6 +5,7 @@ namespace CrazyMinnow.SALSA.OneClicks
     public class OneClickAvatarSdk : OneClickBase
     {
         public static float BlendshapeScale = 100.0f;
+        
         /// <summary>
         /// RELEASE NOTES:
         ///		: Initial release.
